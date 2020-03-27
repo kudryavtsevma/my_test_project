@@ -7,6 +7,9 @@ class ProductPage(BasePage):
         button = self.browser.find_element(*ProductPageLocators.ADD_BUTTON)
         button.click()
 
+    def check_that_the_item_has_disappeared(self):
+        assert self.is_disappeared(*ProductPageLocators.MSG_TO_ADD), "Элемент не исчез"
+
 # Сравниваем цену товара с ценой корзины
     def compare_price(self):
         product_price = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE).text
@@ -25,3 +28,7 @@ class ProductPage(BasePage):
     def should_be_message_total_price(self):
         assert self.is_element_present(
             *ProductPageLocators.TOTAL_PRICE_BASKET), "Нет сообщения со стоимостью корзины"
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.MSG_TO_ADD), \
+            "Success message is presented, but should not be"
