@@ -8,4 +8,5 @@ class BasketPage(BasePage):
             "Товары есть в корзине, но их не должно быть"
 
     def should_be_message_about_empty_basket(self):
-        assert self.is_element_present(*BasketPageLocators.EMPTY_BASKET), "Нет текста о пустой корзине"
+        empty_basket_text = self.browser.find_element(*BasketPageLocators.EMPTY_BASKET).text
+        assert 'Your basket is empty.' in empty_basket_text, 'Нет надписи, что корзина пуста'
